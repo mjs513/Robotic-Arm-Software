@@ -143,14 +143,14 @@ void moveServo() {
   servoPosDeg = constrain(servoPosDeg, servo[servoNum].servo_constLow, servo[servoNum].servo_constHigh);
   
   //Mini Maestro values given in 1/4 ms so you have to multiply by 4.
-  if(servoNum == 1) {
-    servoPosMs = 4*(4.4406*servoPosDeg+1491.1);
-  } else if(servoNum == 2) {
-    servoPosMs = 4*(-2.4208*servoPosDeg+1436.2);
-  } else {
+  //if(servoNum == 1) {
+  //  servoPosMs = 4*(4.4406*servoPosDeg+1491.1);
+  //} else if(servoNum == 2) {
+  //  servoPosMs = 4*(-2.4208*servoPosDeg+1436.2);
+  //} else {
     servoPosMs = 4*map(servoPosDeg, servo[servoNum].servo_fromLow, servo[servoNum].servo_fromHigh,
                servo[servoNum].servo_min, servo[servoNum].servo_max);
-  }
+  //}
   
   //Serial.println(servoPosDeg);
   
