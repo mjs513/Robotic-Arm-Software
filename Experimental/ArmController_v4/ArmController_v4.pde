@@ -23,6 +23,10 @@ import processing.serial.*;
 
 Serial myPort;
 String s="";
+// Serial port state.
+Serial       port;
+String       buffer = "";
+final String serialConfigFile = "serialconfig.txt";
 PImage crciberneticalogo;
 
 float deg2rad = 3.14159/180.;
@@ -50,6 +54,10 @@ GImageToggleButton btnToggle2;
 GImageToggleButton btnToggle3;
 GImageToggleButton btnToggle4;
 GImageToggleButton btnToggle5;
+
+GPanel    configPanel;
+GDropList serialList;
+GLabel    serialLabel;
 
 GTextArea txaAngles;
 int bgcol = 32;
@@ -105,7 +113,8 @@ public void setup() {
   // when not needed.
   txaAngles = new GTextArea(this, 40, 40, 290, 100, G4P.SCROLLBARS_BOTH | G4P.SCROLLBARS_AUTOHIDE);
   // Set some default text
-  txaAngles.setPromptText("Angel Output");
+  txaAngles.setPromptText("Angel Output");  
+  txaAngles.setVisible(true);
   
   table = new Table();
   
@@ -120,14 +129,14 @@ public void setup() {
   d1 = 5; // had to add 0.25in for the base plate
   d2 = 0;
   d3 = 0;
-  d4 = -0.25; //was 
+  d4 = +0.25; //was 
   d5 = 0;
   d6 = 5.75;  //was 4.5
   
   // Set initial values to home positions - these also have to set in the GUI for the sliders
   qi0 = qi3 = qi4 = qi5 = 0.0;
-  qi1 = 127.0;
-  qi2 = -135.0;
+  qi1 = 123.0;
+  qi2 = -123.0;
   
   q[0] = qi0 * deg2rad;
   q[1] = qi1 * deg2rad;
@@ -138,10 +147,37 @@ public void setup() {
   
   crciberneticalogo = loadImage("CRCibernetica509x81.png");
   
-  String portName = "COM19";
-  myPort = new Serial(this, portName, 9600);
+  //String portName = "COM19";
+  //myPort = new Serial(this, portName, 9600);
   //myPort.bufferUntil('\n');
-
+  int selectedPort = 0;
+  String[] availablePorts = Serial.list();
+  if (availablePorts == null) {
+    println("ERROR: No serial ports available!");
+    exit();
+  }
+  String[] serialConfig = loadStrings(serialConfigFile);
+  if (serialConfig != null && serialConfig.length > 0) {
+    String savedPort = serialConfig[0];
+    // Check if saved port is in available ports.
+    for (int i = 0; i < availablePorts.length; ++i) {
+      if (availablePorts[i].equals(savedPort)) {
+        selectedPort = i;
+      } 
+    }
+  }
+  // Build serial config UI.
+  configPanel = new GPanel(this, 10, 10, width-720, 50, "Configuration (click to hide/show)");
+  serialLabel = new GLabel(this,  0, 20, 80, 25, "Serial port:");
+  configPanel.addControl(serialLabel);
+  serialList = new GDropList(this, 90, 20, 200, 200, 6);
+  serialList.setItems(availablePorts, selectedPort);
+  configPanel.addControl(serialList);
+  // Set serial port.
+  setSerialPort(serialList.getSelectedText());
+  
+  
+/*
   while (Contact == false) {
     val = myPort.readStringUntil('\n');
     //make sure our data isn't empty before continuing
@@ -160,15 +196,15 @@ public void setup() {
         }
     }
    }
-
+*/
   Contact = false;
   
-  dropList1.setItems(Serial.list(), 0);
+  //dropList1.setItems(Serial.list(), 0);
   fileName = getDateTime();
-  ////output = createWriter("data/" + "positions" + fileName + ".csv");
+  output = createWriter("data/" + "positions" + fileName + ".csv");
   //output.println("x,y,z,wa,wr,g");
   //             Base, Shoulder, Elbow, Pitch,  0,  Roll,  Gripper
-  ////output.println("theta0,theta1,theta2,theta3,theta4,theta5,g");
+  output.println("theta0,theta1,theta2,theta3,theta4,theta5,g");
   
 }
 
@@ -232,4 +268,35 @@ String getDateTime() {
   s = s + String.valueOf(h);
   s = s + String.valueOf(min);
   return s;
+}
+
+// UI event handlers
+
+// Set serial port to desired value.
+void setSerialPort(String portName) {
+  // Close the port if it's currently open.
+  if (myPort != null) {
+    myPort.stop();
+  }
+  try {
+    // Open port.
+    myPort = new Serial(this, portName, 9600);
+    //myPort.bufferUntil('\n');
+    // Persist port in configuration.
+    saveStrings(serialConfigFile, new String[] { portName });
+  }
+  catch (RuntimeException ex) {
+    // Swallow error if port can't be opened, keep port closed.
+    myPort = null; 
+  }
+}
+void handlePanelEvents(GPanel panel, GEvent event) {
+  // Panel events, do nothing.
+}
+
+void handleDropListEvents(GDropList list, GEvent event) { 
+  // Drop list events, check if new serial port is selected.
+  if (list == serialList) {
+    setSerialPort(serialList.getSelectedText()); 
+  }
 }

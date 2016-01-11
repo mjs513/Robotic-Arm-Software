@@ -275,19 +275,19 @@ String getDateTime() {
 // Set serial port to desired value.
 void setSerialPort(String portName) {
   // Close the port if it's currently open.
-  if (port != null) {
-    port.stop();
+  if (myPort != null) {
+    myPort.stop();
   }
   try {
     // Open port.
-    port = new Serial(this, portName, 57600);
-    port.bufferUntil('\n');
+    myPort = new Serial(this, portName, 9600);
+    myPort.bufferUntil('\n');
     // Persist port in configuration.
     saveStrings(serialConfigFile, new String[] { portName });
   }
   catch (RuntimeException ex) {
     // Swallow error if port can't be opened, keep port closed.
-    port = null; 
+    myPort = null; 
   }
 }
 void handlePanelEvents(GPanel panel, GEvent event) {
