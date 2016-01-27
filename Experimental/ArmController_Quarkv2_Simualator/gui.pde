@@ -243,9 +243,12 @@ public void button7_click1(GButton source, GEvent event) { //_CODE_:button8:4788
 } //_CODE_:button8:478806:
 
 public void button9_click1(GButton source, GEvent event) { //_CODE_:button9:853082:
-  //println("button9 - GButton event occured " + System.currentTimeMillis()%10000000 );
-  createSimWindow();
-  
+  println("button9 - GButton event occured " + System.currentTimeMillis()%10000000 );
+  runSketch( new String[] { "--display=1",
+                            "--location=20,50",
+                            "--sketch-path=" + sketchPath(""),
+                            "" },
+             new ProjectorSketch() );
 } //_CODE_:button9:853082:
 
 public void slider7_change1(GSlider source, GEvent event) { //_CODE_:slider7:768409:

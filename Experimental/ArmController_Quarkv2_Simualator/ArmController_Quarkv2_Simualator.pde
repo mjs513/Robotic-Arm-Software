@@ -55,9 +55,6 @@ GLabel lblInstr;
 GTextArea messageArea;
 GButton button111; 
 GButton button222;
-
-GWindow sim;
-GButton btnCloseSim;
 /////////////////////////////
 
 GImageToggleButton btnToggle0;
@@ -99,8 +96,14 @@ long previousBlinkMillis = 0;
 long interval = 100;
 boolean LAMP = false;
 
+void settings() {
+  size(1050, 700, P3D);
+  smooth(4);
+}
+
+
 public void setup() {
-  size(1050, 700, JAVA2D);
+  //size(1050, 700, P3D);
   createGUI();
   btnToggle0 = new GImageToggleButton(this, 133, 469);
   btnToggle0.tag = "0"; 
@@ -201,7 +204,6 @@ public void draw() {
   updateAnimation();
   
   if(buttonClicked){
-    //thread("processButtonClick");
     thread("gcInterpreter");
     //processButtonClick();
     buttonClicked = false;

@@ -236,7 +236,7 @@ void Generator() {
       
       if(new File(fn).isFile()) {
         if(i>0 && kerning!=0) {
-          output.write("kerning: G0 X"+SX(kerning)+";\n");
+          output.write("G0 X"+SX(kerning)+";\n");
         }
         
         // file found. copy/paste it into the temp file

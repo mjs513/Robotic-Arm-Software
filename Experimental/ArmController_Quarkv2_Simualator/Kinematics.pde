@@ -377,7 +377,9 @@ void movePosition() {
   
   GripperFixedPitchAngle();
   //updateFK();
-   
+  
+
+  
   for( int ii = 0; ii < 6; ii++) {
     print(q[ii]*180/3.1451); print("    "); }
   println(); println();
