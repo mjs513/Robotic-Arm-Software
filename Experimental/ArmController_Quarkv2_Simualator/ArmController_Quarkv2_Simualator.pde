@@ -25,6 +25,8 @@ import java.awt.Font;
 
 Serial myPort;
 String s="";
+String[] emptyString = new String[1];
+
 PImage crciberneticalogo;
 
 float deg2rad = 3.14159/180.;
@@ -97,7 +99,7 @@ long interval = 100;
 boolean LAMP = false;
 
 void settings() {
-  size(1050, 700, P3D);
+  size(1050, 700, JAVA2D);
   smooth(4);
 }
 
@@ -182,7 +184,12 @@ public void setup() {
 */
   Contact = false;
   
-  dropList1.setItems(Serial.list(), 0);
+  if(Serial.list().length > 0) {
+    dropList1.setItems(Serial.list(), 0);
+  } else {
+    emptyString[0] = "empty";
+    dropList1.setItems(emptyString,0);
+  }
   fileName = getDateTime();
   ////output = createWriter("data/" + "positions" + fileName + ".csv");
   //output.println("x,y,z,wa,wr,g");

@@ -6,7 +6,7 @@ class ProjectorSketch extends PApplet {
   int gridSize = 50;  
   
   void settings() {
-    size(1000, 600, P3D);
+    size(800, 600, P3D);
     smooth();
   }
  
@@ -93,7 +93,7 @@ class ProjectorSketch extends PApplet {
   popMatrix();
   noStroke();
   rotateX(-PI/2);
-   
+
    translate(0, 0, 65);
    //rotateY(gamma);
    rotateZ((float) q[0]);
