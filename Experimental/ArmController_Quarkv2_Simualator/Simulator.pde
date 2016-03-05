@@ -1,17 +1,18 @@
 class ProjectorSketch extends PApplet {
   
-  PShape base, shoulder, elbow, foreArm, wristPitch, wristRoll;
+  PShape pedistal, base, shoulder, elbow, foreArm, wristPitch, wristRoll;
   float rotX, rotY;
   float posX=1, posY=50, posZ=50;
   int gridSize = 50;  
   
   void settings() {
-    size(800, 600, P3D);
+    size(1000, 600, P3D);
     smooth();
   }
  
   void setup() {
     
+    pedistal = loadShape("pedistal.obj");
     base = loadShape("base.obj");
     shoulder = loadShape("shoulder.obj");
     elbow = loadShape("Elbow.obj");
@@ -19,6 +20,7 @@ class ProjectorSketch extends PApplet {
     wristPitch = loadShape("wristPitch.obj");
     wristRoll = loadShape("wristRoll.obj");
     
+    //pedistal.disableStyle();
     shoulder.disableStyle();
     elbow.disableStyle();
     //foreArm.disableStyle(); 
@@ -62,28 +64,27 @@ class ProjectorSketch extends PApplet {
     }
 */
 
-   fill(#FFE308);  
+   fill(#FFE308);   
    translate(0,0,0);
    rotateX(-PI/2);
-   //rotateZ(PI/4);
-     shape(base);
+     shape(pedistal);
 
    rotateX(PI/2);
    strokeWeight(5);   
    //coordinate system
    stroke(255,0,0); //red, x-axis
-   line(0,0,0,500,0,0);
+   line(-10,0,0,500,0,0);
    stroke(0,255,0); //green, y-axis
-   line(0,0,0,0,500,0);
+   line(-10,0,0,0,500,0);
    stroke(0,0,255); //blue, z-axis
-   line(0,0,0,0,0,500);
+   line(-10,0,0,0,0,500);
    
    strokeWeight(2);
    stroke(0,197,205); 
    pushMatrix();
    for(int i = -width/2; i <width/2; i+=gridSize) {
     for(int j = -height/2; j < height/2; j+=gridSize) {
-      int y = 0; int x = 300;
+      int y = 0; int x = 290;
       line(i+x,          y, j,           i+x+gridSize, y, j          );
       line(i+x+gridSize, y, j,           i+x+gridSize, y, j+gridSize );
       line(i+x+gridSize, y, j+gridSize,  i+x,          y, j+gridSize );
@@ -93,7 +94,12 @@ class ProjectorSketch extends PApplet {
   popMatrix();
   noStroke();
   rotateX(-PI/2);
-
+  
+   translate(-10,0,90);
+   //rotateZ(PI/4);
+     shape(base); 
+   
+   
    translate(0, 0, 65);
    //rotateY(gamma);
    rotateZ((float) q[0]);
@@ -128,4 +134,6 @@ void mouseDragged(){
     rotX -= (mouseY - pmouseY) * 0.01;
 }
  
+  @ Override void exit() {
+  }
 }

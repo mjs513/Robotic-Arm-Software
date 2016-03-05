@@ -293,7 +293,7 @@ public void createGUI(){
   slider2 = new GSlider(this, 366, 92, 350, 75, 30.0);
   slider2.setShowValue(true);
   slider2.setShowLimits(true);
-  slider2.setLimits(135.0, 10.0, 180.0);
+  slider2.setLimits(135.0, -20.0, 180.0);
   slider2.setEasing(10.0);
   slider2.setNumberFormat(G4P.INTEGER, 0);
   slider2.setOpaque(false);
@@ -454,7 +454,7 @@ public void createGUI(){
   button8.addEventHandler(this, "button8_click1");
   
   button9 = new GButton(this, 932, 435, 80, 30);
-  button9.setText("Face text");
+  button9.setText("Simulator");
   button9.setTextBold();
   button9.setLocalColorScheme(GCScheme.GOLD_SCHEME);
   button9.addEventHandler(this, "button9_click1");

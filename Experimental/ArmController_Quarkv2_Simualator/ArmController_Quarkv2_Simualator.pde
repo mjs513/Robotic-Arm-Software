@@ -25,8 +25,6 @@ import java.awt.Font;
 
 Serial myPort;
 String s="";
-String[] emptyString = new String[1];
-
 PImage crciberneticalogo;
 
 float deg2rad = 3.14159/180.;
@@ -105,7 +103,6 @@ void settings() {
 
 
 public void setup() {
-  //size(1050, 700, P3D);
   createGUI();
   btnToggle0 = new GImageToggleButton(this, 133, 469);
   btnToggle0.tag = "0"; 
@@ -132,13 +129,13 @@ public void setup() {
   
   // DH Parameters for arm
   a1 = 0;
-  a2 = 6.75;
-  a3 = 6.625;
+  a2 = 6.75+0.25;
+  a3 = 6.625+0.75;
   a4 = 1.25;
   a5 = 0;
   a6 = 0.0;
   
-  d1 = 5; // had to add 0.25in for the base plate
+  d1 = 4.75+3.375; // had to add 0.25in for the base plate
   d2 = 0;
   d3 = 0;
   d4 = -0.25; //was 
@@ -147,8 +144,8 @@ public void setup() {
   
   // Set initial values to home positions - these also have to set in the GUI for the sliders
   qi0 = qi3 = qi4 = qi5 = 0.0;
-  qi1 = 127.0;
-  qi2 = -135.0;
+  qi1 = 124.0;
+  qi2 = -121.0;
   
   q[0] = qi0 * deg2rad;
   q[1] = qi1 * deg2rad;
@@ -184,12 +181,7 @@ public void setup() {
 */
   Contact = false;
   
-  if(Serial.list().length > 0) {
-    dropList1.setItems(Serial.list(), 0);
-  } else {
-    emptyString[0] = "empty";
-    dropList1.setItems(emptyString,0);
-  }
+  dropList1.setItems(Serial.list(), 0);
   fileName = getDateTime();
   ////output = createWriter("data/" + "positions" + fileName + ".csv");
   //output.println("x,y,z,wa,wr,g");

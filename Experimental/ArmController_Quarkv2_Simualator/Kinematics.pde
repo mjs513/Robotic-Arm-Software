@@ -265,8 +265,8 @@ int Arm(float x, float y, float z, int g, float wa, int wr)
   t3 = (float) q[3]*rad2deg;
   
   //Failsafe to avoid going beyond angle limits,i.e., set stops
-  if(t0 < -80 || t0 > 80) flag0 = 1;
-  if(t1 < 10 || t1 > 160) flag1 = 1;
+  if(t0 < -90 || t0 > 90) flag0 = 1;
+  if(t1 < 0 || t1 > 160) flag1 = 1;
   if(t2 < -150 || t2 > 45) flag2 = 1;
   if(t3 < 0 || t3 > 180) flag3 = 1;
 
