@@ -7,7 +7,7 @@ String words = "G0 X-1 Y0.5";
 
 float ox = 13.64f;
 float oy = 0.0f;
-float oz = 2.818f;
+float oz = 2.318f;
 float new_x = 0.0f;
 float new_y = 0.0f;
 float new_z = 0.0f;

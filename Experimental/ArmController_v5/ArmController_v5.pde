@@ -132,23 +132,23 @@ public void setup() {
   
   // DH Parameters for arm
   a1 = 0;
-  a2 = 6.75;
-  a3 = 6.625;
+  a2 = 6.75+0.25;
+  a3 = 6.625+0.75;
   a4 = 1.25;
   a5 = 0;
   a6 = 0.0;
   
-  d1 = 5; // had to add 0.25in for the base plate
+  d1 = 4.75+3.375; // had to add 0.25in for the base plate
   d2 = 0;
   d3 = 0;
-  d4 = +0.25; //was 
+  d4 = -0.25; //was 
   d5 = 0;
   d6 = 5.75;  //was 4.5
   
   // Set initial values to home positions - these also have to set in the GUI for the sliders
   qi0 = qi3 = qi4 = qi5 = 0.0;
-  qi1 = 123.0;
-  qi2 = -123.0;
+  qi1 = 124.0;
+  qi2 = -121.0;
   
   q[0] = qi0 * deg2rad;
   q[1] = qi1 * deg2rad;

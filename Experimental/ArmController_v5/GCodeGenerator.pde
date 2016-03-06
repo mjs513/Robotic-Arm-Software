@@ -16,7 +16,7 @@ import java.nio.file.Paths;
 
   protected float z_up=0.5f;
   protected float z_down=-0.5f;
-  protected float scale=0.5f;
+  protected float scale=1.0f;
   
   // font properties
   protected float kerning=0.20f;
