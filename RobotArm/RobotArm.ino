@@ -76,12 +76,12 @@ void setup() {
   //Serial.println(map(0,180,-180,4244,7680));
 
   //maestro_parameters servo[6];
-  servo[0] = (maestro_parameters) {0, "Base", 1064, 1663, 1366, 0, 0, 1504, -90, 90, -80, 80};
-  servo[1] = (maestro_parameters) {1, "Shoulder", 672, 2248, 2040, 40, 0, 2040, -180, 180, -10, 180};
-  servo[2] = (maestro_parameters) {2, "Elbow", 928, 1872, 1738, 10, 0, 1505, 180, -180, -160, 45};
-  servo[3] = (maestro_parameters) {3, "Wrist_Pitch", 928, 2128, 928, 10, 0, 1500, 0, 180, 0, 180};
+  servo[0] = (maestro_parameters) {0, "Base", 752, 1920, 1344, 0, 0, 1504, -90, 90, -80, 80};
+  servo[1] = (maestro_parameters) {1, "Shoulder", 672, 2288, 2040, 0, 0, 2040, -180, 180, -10, 180};
+  servo[2] = (maestro_parameters) {2, "Elbow", 992, 1872, 1738, 10, 0, 1505, 180, -180, -160, 45};
+  servo[3] = (maestro_parameters) {3, "Wrist_Pitch", 912, 2080, 912, 0, 0, 1500, 0, 180, 0, 180};
   servo[4] = (maestro_parameters) {6, "Wrist_Rotate", 608, 2448, 1500, 40, 0, 1500, 90, -90, -90, 90};
-  servo[5] = (maestro_parameters) {7, "Gripper", 1312, 1792, 1358, 7, 0, 1500, 0, 10, 0, 10};
+  servo[5] = (maestro_parameters) {7, "Gripper", 1216, 1792, 1244, 7, 0, 1500, 0, 10, 0, 10};
 
 }
 
@@ -143,14 +143,14 @@ void moveServo() {
   servoPosDeg = constrain(servoPosDeg, servo[servoNum].servo_constLow, servo[servoNum].servo_constHigh);
   
   //Mini Maestro values given in 1/4 ms so you have to multiply by 4.
-  //if(servoNum == 1) {
-  //  servoPosMs = 4*(4.4406*servoPosDeg+1491.1);
-  //} else if(servoNum == 2) {
-  //  servoPosMs = 4*(-2.4208*servoPosDeg+1436.2);
-  //} else {
+  if(servoNum == 1) {
+    servoPosMs = 4*(4.4014*servoPosDeg+1476.0);
+  } else if(servoNum == 2) {
+    servoPosMs = 4*(-2.4222*servoPosDeg+1436.1);
+  } else {
     servoPosMs = 4*map(servoPosDeg, servo[servoNum].servo_fromLow, servo[servoNum].servo_fromHigh,
                servo[servoNum].servo_min, servo[servoNum].servo_max);
-  //}
+  }
   
   //Serial.println(servoPosDeg);
   
